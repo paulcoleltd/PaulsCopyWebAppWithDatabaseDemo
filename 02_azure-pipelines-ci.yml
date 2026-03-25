@@ -1,5 +1,5 @@
-trigger:  # will disable CI builds entirely
- - master
+trigger:'none'  # will disable CI builds entirely
+#- master
 #pr: none
 # - master
 # - releases/*
@@ -26,39 +26,7 @@ jobs:
     inputs:
       command: restore
       projects: '**/WebApp.csproj'
-  
-  #- task: VSBuild@1
-  #  displayName: Build TrainingDemo
-  #  inputs:
-  #    solution: '$(solution)'
-  #    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
-  #    platform: '$(buildPlatform)'
-  #    configuration: '$(buildConfiguration)'
-
-  # - powershell: |
-  #    $paths = Get-ChildItem -include *.csproj -Recurse
-  #    foreach($pathobject in $paths) 
-  #    {
-  #        $path = $pathobject.fullname
-  #        $doc = New-Object System.Xml.XmlDocument
-  #        $doc.Load($path)
-  #        $child = $doc.CreateElement("ProjectGuid")
-  #        $child.InnerText = [guid]::NewGuid().ToString().ToUpper()
-  #        $node = $doc.SelectSingleNode("//Project/PropertyGroup")
-  #        $node.AppendChild($child)
-  #        $doc.Save($path)
-  #    }
-  #  workingDirectory: WebApp
-  #  displayName: 'PS : Add Project GUID'
-   # enabled: false
-  
-  # - task: SonarCloudPrepare@1
-  #   displayName: 'Prepare analysis on SonarCloud'
-  #   inputs:
-  #     SonarCloud: SonarCloud
-  #     organization: houssemdellai
-  #     projectKey: WebAppWithDatabaseDemo
-  
+ 
   - task: DotNetCoreCLI@2
     displayName: Build
     inputs:
@@ -143,5 +111,3 @@ jobs:
     inputs:
       PathtoPublish: AzureResourceGroupDeployment
       ArtifactName: arm
-
-
